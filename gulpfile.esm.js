@@ -7,7 +7,7 @@ const
 
 export function html() {
   return src(SRC + '*.pug')
-    .pipe(pug())
+    .pipe(pug({ pretty: true }))
     .pipe(dest(DEST));
 }
 
