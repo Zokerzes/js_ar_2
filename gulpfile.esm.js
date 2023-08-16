@@ -1,6 +1,8 @@
-import { src, dest } from 'gulp';
-import pug from 'gulp-pug'
-import stylus from 'gulp-stylus'
+import { src, dest, series, parallel } from 'gulp';
+import pug from 'gulp-pug';
+import stylus from 'gulp-stylus';
+
+
 
 const
   SRC = './src/',
@@ -23,4 +25,13 @@ export function js() {
     .pipe(dest(DEST));
 }
 
+async function upload() {
+  console.log('Load files on server');
+}
+
+async function serv() {
+  console.log('dev server');
+}
+export const prod =
+export const dev =
 
