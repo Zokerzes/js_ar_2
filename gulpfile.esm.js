@@ -2,7 +2,9 @@ import { src, dest, series, parallel } from 'gulp';
 import pug from 'gulp-pug';
 import stylus from 'gulp-stylus';
 import clean from 'gulp-clean';
-
+import terser from 'gulp-terser'
+import nop from 'gulp-nop'
+import gulpIf from 'gulp-if'
 
 const
   SRC = './src/',
@@ -25,6 +27,8 @@ export function css() {
 
 export function js() {
   return src(SRC + '*.js')
+    .pipe(minification ? terser() : nop())
+    //
     .pipe(dest(DEST));
 }
 

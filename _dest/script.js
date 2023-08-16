@@ -1,12 +1,1 @@
-// тут комментарий
-function
-  sayHello(event) 
-    {
-      const 
-        hello = `Hello, `,
-        user = `User!! `,
-        from = 'From ';
-    alert(
-      hello + user + from + event.target.tagName
-    )
-  }
+function sayHello(e){alert("Hello, User!! From "+e.target.tagName)}
