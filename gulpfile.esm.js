@@ -21,7 +21,7 @@ export function html() {
 
 export function css() {
   return src(SRC + '*.styl')
-    .pipe(stylus({ commpess: minification }))
+    .pipe(stylus({ compress: minification }))
     .pipe(dest(DEST));
 }
 
