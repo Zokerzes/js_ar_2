@@ -1,9 +1,10 @@
 import { src, dest } from 'gulp';
 
 const
-  SRC = './srt/',
+  SRC = './src/',
   DEST = './_dest/';
 
 export function js() {
-  return
+  return src(SRC + '*.js')
+    .pipe(dest(DEST));
 }
