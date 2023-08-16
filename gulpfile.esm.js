@@ -1,7 +1,7 @@
 import { src, dest, series, parallel } from 'gulp';
 import pug from 'gulp-pug';
 import stylus from 'gulp-stylus';
-
+import clean from 'gulp-clean';
 
 
 const
@@ -19,7 +19,7 @@ export function html() {
 
 export function css() {
   return src(SRC + '*.styl')
-    .pipe(stylus({ commpess: miniication }))
+    .pipe(stylus({ commpess: minification }))
     .pipe(dest(DEST));
 }
 
@@ -41,6 +41,8 @@ async function setMinification() {
 }
 
 async function cleanDir() {
+  return src(DEST + '**/*.*', { read: false })
+    .pipe(clean());
 }
 
 export const make = parallel(html, css, js);
