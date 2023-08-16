@@ -28,7 +28,6 @@ export function css() {
 export function js() {
   return src(SRC + '*.js')
     .pipe(minification ? terser() : nop())
-    //
     .pipe(dest(DEST));
 }
 
