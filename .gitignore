@@ -1,1 +1,7 @@
 dz_gulp.txt
+node_modules/.cache/esm/.data.blob
+node_modules/.cache/esm/.data.json
+node_modules/.cache/esm/f7911d02fde3a17e.js
+node_modules/.cache/esm/f7911d026ae496b8.js
+node_modules/*.*
+node_modules
