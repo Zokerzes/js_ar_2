@@ -2,11 +2,13 @@ import { src, dest, series, parallel } from 'gulp';
 import pug from 'gulp-pug';
 import stylus from 'gulp-stylus';
 import clean from 'gulp-clean';
-import terser from 'gulp-terser'
-import nop from 'gulp-nop'
+import terser from 'gulp-terser';
+import nop from 'gulp-nop';
+import { create } from 'browser-sync';
 
 
 const
+  browserSync = create(),
   SRC = './src/',
   DEST = './_dest/';
 
