@@ -2,7 +2,7 @@ body {
   font-size: xx-large;
 }
 li:nth-child(1) {
-  color: #f00;
+  color: rgb(255, 8, 0);
 }
 li:nth-child(2) {
   color: #ffdb00;
