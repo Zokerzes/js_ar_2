@@ -1,4 +1,4 @@
-import { src, dest, series, parallel } from 'gulp';
+import { src, dest, series, parallel, watch } from 'gulp';
 import pug from 'gulp-pug';
 import stylus from 'gulp-stylus';
 import clean from 'gulp-clean';
@@ -37,9 +37,6 @@ async function upload() {
   console.log('Load files on server');
 }
 
-async function serv() {
-  console.log('dev server');
-}
 
 async function setMinification() {
   minification = true;
@@ -48,6 +45,14 @@ async function setMinification() {
 async function cleanDir() {
   return src(DEST + '**/*.*', { read: false })
     .pipe(clean());
+}
+
+const browserSyncReload = async () => browserSync.reload();
+
+async function serv() {
+  browserSync.init({ server: { baseDir: DEST } });
+  watch(DEST + '**/*.*', browserSyncReload);
+  watch(SRC + '**/*.*', make);
 }
 
 export const make = parallel(html, css, js);
