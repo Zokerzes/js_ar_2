@@ -10,25 +10,28 @@ import { create } from 'browser-sync';
 const
   browserSync = create(),
   SRC = './src/',
-  DEST = './_dest/';
+  DEST = './_dest/',
+  PUG_SOURCE = SRC + '*.pug',
+  STYL_SOURCE = SRC + '*.styl',
+  JS_SOURCE = SRC + '*.js';
 
 let
   minification = false;
 
 export function html() {
-  return src(SRC + '*.pug')
+  return src(PUG_SOURCE)
     .pipe(pug({ pretty: !minification }))
     .pipe(dest(DEST));
 }
 
 export function css() {
-  return src(SRC + '*.styl')
+  return src(STYL_SOURCE)
     .pipe(stylus({ compress: minification }))
     .pipe(dest(DEST));
 }
 
 export function js() {
-  return src(SRC + '*.js')
+  return src(JS_SOURCE)
     .pipe(minification ? terser() : nop())
     .pipe(dest(DEST));
 }
@@ -52,7 +55,10 @@ const browserSyncReload = async () => browserSync.reload();
 async function serv() {
   browserSync.init({ server: { baseDir: DEST } });
   watch(DEST + '**/*.*', browserSyncReload);
-  watch(SRC + '**/*.*', make);
+  //watch(SRC + '**/*.*', make);
+  watch(PUG_SOURCE, html);
+  watch(STYL_SOURCE, css);
+  watch(JS_SOURCE, js);
 }
 
 export const make = parallel(html, css, js);
