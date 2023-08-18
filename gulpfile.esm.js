@@ -25,13 +25,13 @@ export function html() {
 }
 
 export function css() {
-  return src(STYL_SOURCE)
+  return src(STYL_SOURCE, { sourcemaps: !minification })
     .pipe(stylus({ compress: minification }))
-    .pipe(dest(DEST));
+    .pipe(dest(DEST, { sourcemaps: '.' }));
 }
 
 export function js() {
-  return src(JS_SOURCE)
+  return src(JS_SOURCE, { sourcemaps: !minification })
     .pipe(minification ? terser() : nop())
     .pipe(dest(DEST));
 }
@@ -55,7 +55,7 @@ const browserSyncReload = async () => browserSync.reload();
 async function serv() {
   browserSync.init({ server: { baseDir: DEST } });
   watch(DEST + '**/*.*', browserSyncReload);
-  //watch(SRC + '**/*.*', make);
+  //watch(SRC + '**/*.*', make); не оптимально
   watch(PUG_SOURCE, html);
   watch(STYL_SOURCE, css);
   watch(JS_SOURCE, js);

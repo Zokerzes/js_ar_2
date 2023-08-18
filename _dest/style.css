@@ -2,7 +2,7 @@ body {
   font-size: xx-large;
 }
 li:nth-child(1) {
-  color: rgb(255, 8, 0);
+  color: #f00;
 }
 li:nth-child(2) {
   color: #ffdb00;
@@ -22,3 +22,4 @@ li:nth-child(6) {
 li:nth-child(7) {
   color: #ff00db;
 }
+/*# sourceMappingURL=style.css.map */
