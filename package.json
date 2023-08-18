@@ -1,5 +1,5 @@
 {
-  "name": "js_ar_2",
+  "name": "my-gulp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,7 +19,6 @@
     "gulp-nop": "^0.0.3",
     "gulp-pug": "^5.0.0",
     "gulp-stylus": "^3.0.1",
-    "gulp-terser": "^2.1.0",
-    "pug": "^3.0.2"
+    "gulp-terser": "^2.1.0"
   }
 }

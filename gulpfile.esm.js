@@ -5,60 +5,57 @@ import clean from 'gulp-clean';
 import terser from 'gulp-terser';
 import nop from 'gulp-nop';
 import { create } from 'browser-sync';
-
+// import gulpIf from 'gulp-if';
 
 const
   browserSync = create(),
   SRC = './src/',
   DEST = './_dest/',
-  PUG_SOURCE = SRC + '*.pug',
+  PUG_SOURCE = SRC + '**/*.pug',
   STYL_SOURCE = SRC + '*.styl',
   JS_SOURCE = SRC + '*.js';
+  
 
 let
   minification = false;
 
 export function html() {
-  return src(PUG_SOURCE)
+  return src([PUG_SOURCE,'!./src/_includes/**/*.*'])
     .pipe(pug({ pretty: !minification }))
     .pipe(dest(DEST));
 }
 
 export function css() {
-  return src(STYL_SOURCE, { sourcemaps: !minification })
+  return src(STYL_SOURCE, {sourcemaps: !minification})
     .pipe(stylus({ compress: minification }))
-    .pipe(dest(DEST, { sourcemaps: '.' }));
+    .pipe(dest(DEST,{sourcemaps:'.'}));
 }
 
 export function js() {
-  return src(JS_SOURCE, { sourcemaps: !minification })
+  return src(JS_SOURCE, {sourcemaps:!minification})
     .pipe(minification ? terser() : nop())
+    // .pipe(gulpIf(minification,terser()))
     .pipe(dest(DEST));
 }
-
-async function upload() {
-  console.log('Load files on server');
-}
-
 
 async function setMinification() {
   minification = true;
 }
 
-async function cleanDir() {
+export function cleanDir() {
   return src(DEST + '**/*.*', { read: false })
     .pipe(clean());
 }
 
 const browserSyncReload = async () => browserSync.reload();
 
-async function serv() {
+export async function serv() {
   browserSync.init({ server: { baseDir: DEST } });
   watch(DEST + '**/*.*', browserSyncReload);
-  //watch(SRC + '**/*.*', make); не оптимально
-  watch(PUG_SOURCE, html);
-  watch(STYL_SOURCE, css);
-  watch(JS_SOURCE, js);
+  // watch(SRC + '**/*.*', make);
+  watch(PUG_SOURCE,html);
+  watch(STYL_SOURCE,css);
+  watch(JS_SOURCE,js);
 }
 
 export const make = parallel(html, css, js);
@@ -66,4 +63,8 @@ export const make = parallel(html, css, js);
 export const prod = series(setMinification, cleanDir, make, upload);
 export const dev = series(make, serv);
 export default dev;
+
+async function upload() {
+  console.log('Загружаем файлы на сервер');
+}
 
